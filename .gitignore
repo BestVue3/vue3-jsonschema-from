@@ -4,3 +4,4 @@ node_modules
 .npmrc
 dist
 coverage
+packages/*/lib/
