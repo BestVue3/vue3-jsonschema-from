@@ -1,0 +1,95 @@
+{
+  "name": "vue-jss",
+  "version": "0.0.2",
+  "main": "dist/index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pure-vue/vue-jss"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "vue3",
+    "jss",
+    "vue",
+    "css in js",
+    "useStyles"
+  ],
+  "author": "Jokcy",
+  "license": "MIT",
+  "devDependencies": {
+    "@ant-design-vue/babel-plugin-jsx": "^1.0.0-rc.1",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@types/ajv-errors": "^1.0.2",
+    "@types/common-tags": "^1.8.0",
+    "@types/lodash.union": "^4.6.6",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.43",
+    "@types/sinon": "^9.0.4",
+    "@vue/babel-plugin-jsx": "^1.0.0-rc.3",
+    "@vue/test-utils": "2.0.0-beta.5",
+    "ajv": "^6.12.3",
+    "ajv-errors": "^1.0.1",
+    "ajv-i18n": "^3.5.0",
+    "babel-jest": "^26.1.0",
+    "babel-loader": "^8.1.0",
+    "common-tags": "^1.8.0",
+    "css-loader": "^4.2.1",
+    "csstype": "^3.0.2",
+    "eslint": "^7.5.0",
+    "file-loader": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch": "^5.0.1",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.1.0",
+    "jest-environment-jsdom-fifteen": "^1.0.2",
+    "jest-transform-stub": "^2.0.0",
+    "jest-watch-typeahead": "^0.6.0",
+    "jss": "^10.3.0",
+    "jss-preset-default": "^10.3.0",
+    "learn": "^0.1.5",
+    "lerna": "^3.22.1",
+    "merge2": "^1.4.1",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9.0",
+    "np": "^6.3.2",
+    "rimraf": "^3.0.2",
+    "sinon": "^9.0.2",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^26.1.4",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
+    "vue": "^3.0.0",
+    "vue-jss": "^0.0.4",
+    "vuepress": "^1.5.2",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "play": "lerna run --scope playground dev --stream",
+    "dev": "gulp dev",
+    "release": "np patch",
+    "bootstrap": "lerna bootstrap"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.7",
+    "jsonpointer": "^4.1.0",
+    "lodash.union": "^4.6.0",
+    "tiny-warning": "^1.0.3"
+  }
+}

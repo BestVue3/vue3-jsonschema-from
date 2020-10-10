@@ -1,0 +1,14 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: 'playground',
+0 silly argv   D: true,
+0 silly argv   dev: true,
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   pkg: 'vue3-jsonschema-form'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath /Users/jokcylou/workspace/personal/vue3-json-schema-form
+3 error Error: 404 Not Found - GET https://registry.npmjs.com/vue3-jsonschema-form - Not found
+3 error     at /Users/jokcylou/workspace/personal/vue3-json-schema-form/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15
