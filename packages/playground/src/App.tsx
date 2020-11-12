@@ -11,9 +11,9 @@ import {
   SchemaForm,
   Schema,
   UISchema,
-} from 'vue3-jsonschema-form'
+} from '@vjsf/core'
 
-import VjsfDefaultThemeProvider from 'vjsf-theme-default'
+import VjsfDefaultThemeProvider from '@vjsf/theme-default'
 
 import demos from './demos'
 
@@ -114,6 +114,7 @@ export default defineComponent({
       schemaCode: string
       dataCode: string
       uiSchemaCode: string
+      customValidate?: any
     } = reactive({
       schema: null,
       data: {},
@@ -132,6 +133,7 @@ export default defineComponent({
       demo.schemaCode = toJson(d.schema)
       demo.dataCode = toJson(d.default)
       demo.uiSchemaCode = toJson(d.uiSchema)
+      demo.customValidate = d.customValidate
     })
 
     const methodRef: Ref<any> = ref()
@@ -218,6 +220,8 @@ export default defineComponent({
                   onChange={handleChange}
                   contextRef={methodRef}
                   value={demo.data}
+                  customValidate={demo.customValidate}
+                  // {...{ customValidate: demo.customValidate }}
                   plugins={[
                     {
                       customFormats: [CustomFormat],

@@ -64,7 +64,28 @@ export function useCommonField(props: PropsArg, type: SchemaTypes) {
 
   const optionsRef = computed(() => {
     const { schema, uiSchema } = props
-    const enumOptions = isSelect(schema) ? optionsList(schema) : []
+    const isBool = schema.type === SchemaTypes.BOOLEAN
+
+    let enumOptions = []
+    if (isBool) {
+      enumOptions = [
+        {
+          key: '----------------',
+          value: undefined,
+        },
+        {
+          key: 'true',
+          value: true,
+        },
+        {
+          key: 'false',
+          value: false,
+        },
+      ]
+    } else {
+      enumOptions = isSelect(schema) ? optionsList(schema) : []
+    }
+
     return {
       enumOptions,
       ...uiSchema,

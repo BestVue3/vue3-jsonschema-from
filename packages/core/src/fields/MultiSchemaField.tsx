@@ -1,4 +1,5 @@
 import { defineComponent, PropType, computed, reactive, watchEffect } from 'vue'
+import { JSONSchema6Definition, JSONSchema7Definition } from 'json-schema'
 
 import { CommonFieldPropsDefine, Schema, SchemaTypes } from '../types'
 import { useVJSFContext } from '../Context'
@@ -15,7 +16,9 @@ export default defineComponent({
   props: {
     ...CommonFieldPropsDefine,
     options: {
-      type: Array as PropType<Schema[]>,
+      type: Array as PropType<
+        JSONSchema6Definition[] | JSONSchema7Definition[]
+      >,
       required: true,
     },
     baseType: {
@@ -70,7 +73,7 @@ export default defineComponent({
 
         // Discard any data added using other options
         for (const option of optionsToDiscard) {
-          if (option.properties) {
+          if (typeof option !== 'boolean' && option.properties) {
             for (const key in option.properties) {
               if (newFormData.hasOwnProperty(key)) {
                 delete newFormData[key]
@@ -80,7 +83,9 @@ export default defineComponent({
         }
       }
       // Call getDefaultFormState to make sure defaults are populated on change.
-      onChange(getDefaultFormState(options[selectedOption], newFormData))
+      onChange(
+        getDefaultFormState(options[selectedOption] as Schema, newFormData),
+      )
 
       state.selectedOption = selectedOption
     }
@@ -94,7 +99,10 @@ export default defineComponent({
     })
 
     watchEffect(() => {
-      state.selectedOption = getMatchingOptionLocal(props.value, props.options)
+      state.selectedOption = getMatchingOptionLocal(
+        props.value,
+        props.options as Schema[],
+      )
     })
 
     return () => {
@@ -119,7 +127,7 @@ export default defineComponent({
       const option = options[selectedOption] || null
       let optionSchema
 
-      if (option) {
+      if (option && typeof option !== 'boolean') {
         // If the subschema doesn't declare a type, infer the type from the
         // parent schema
         optionSchema = option.type
@@ -127,10 +135,12 @@ export default defineComponent({
           : Object.assign({}, option, { type: baseType })
       }
 
-      const enumOptions = options.map((option, index) => ({
-        key: option.title || `Option ${index + 1}`,
-        value: index,
-      }))
+      const enumOptions = (options as any).map(
+        (option: Schema, index: number) => ({
+          key: option.title || `Option ${index + 1}`,
+          value: index,
+        }),
+      )
 
       return (
         <>

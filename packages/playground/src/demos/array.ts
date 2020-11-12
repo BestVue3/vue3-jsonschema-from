@@ -156,29 +156,29 @@ export default {
       },
       unorderable: {
         title: 'Unorderable items',
-        options: {
-          orderable: false,
+        controls: {
+          sortable: false,
         },
       },
       unremovable: {
         title: 'Unremovable items',
-        options: {
+        controls: {
           removable: false,
         },
       },
       noToolbar: {
         title: 'No add, remove and order buttons',
-        options: {
+        controls: {
           addable: false,
-          orderable: false,
+          sortable: false,
           removable: false,
         },
       },
       fixedNoToolbar: {
         title: 'Fixed array without buttons',
-        options: {
+        controls: {
           addable: false,
-          orderable: false,
+          sortable: false,
           removable: false,
         },
       },

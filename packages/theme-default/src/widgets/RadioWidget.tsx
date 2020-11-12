@@ -1,18 +1,10 @@
-import { defineComponent, PropType } from 'vue'
-import { CommonWidgetPropsDefine, SchemaTypes } from 'vue3-jsonschema-form'
+import { defineComponent } from 'vue'
+import { CommonWidgetPropsDefine } from '@vjsf/core'
 
 const Radios = defineComponent({
+  name: 'RadioWidget',
   props: {
     ...CommonWidgetPropsDefine,
-    // options: {
-    //   type: Array as PropType<
-    //     {
-    //       key: string | number
-    //       value: string | number
-    //     }[]
-    //   >,
-    //   required: true,
-    // },
   },
   setup(props) {
     const handleChange = (event: Event) => {
@@ -35,11 +27,11 @@ const Radios = defineComponent({
                 type="radio"
                 value={o.value as any}
                 checked={props.value === o.value}
-                // v-model={props.value}
                 name={id}
                 onClick={handleChange}
+                id={`${id}-${index}`}
               />
-              <label>{o.key}</label>
+              <label for={`${id}-${index}`}>{o.key}</label>
             </div>
           ))}
         </div>
@@ -47,52 +39,5 @@ const Radios = defineComponent({
     }
   },
 })
-
-// export function withCommonRadios(Comp: any) {
-//   return defineComponent({
-//     name: 'WithRadioWrapper',
-//     props: CommonWidgetPropsDefine,
-//     setup(props) {
-//       return () => {
-//         const { schema, uiSchema, value, onChange, path } = props
-
-//         const children = <Comp {...props} />
-
-//         if (
-//           schema.type === SchemaTypes.INTEGER ||
-//           schema.type === SchemaTypes.NUMBER ||
-//           schema.type === SchemaTypes.STRING
-//         ) {
-//           const widget = uiSchema && uiSchema.widget
-
-//           // widget first
-//           if (widget && widget !== 'radio') return children
-
-//           if (schema.enum || schema.enumKeyValue) {
-//             const options = schema.enumKeyValue
-//               ? schema.enumKeyValue
-//               : (schema as any).enum.map((k: any) => ({
-//                   key: k,
-//                   value: k,
-//                 }))
-
-//             return renderItem(props, () => (
-//               <Radios
-//                 options={options}
-//                 value={value}
-//                 onChange={onChange}
-//                 name={path}
-//               />
-//             ))
-//           } else {
-//             return children
-//           }
-//         } else {
-//           return children
-//         }
-//       }
-//     },
-//   })
-// }
 
 export default Radios

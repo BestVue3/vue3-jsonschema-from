@@ -4,7 +4,6 @@ import { createUseStyles } from 'vue-jss'
 import {
   ThemeRendererComponentNames,
   ThemeLayoutsNames,
-  RendererComponentDefine,
   useComponent,
   HeaderDefine,
   BuiltInWidgets,
@@ -44,13 +43,18 @@ enum ArrayItemAction {
   UP = 'up',
 }
 
+function controlAvailable(controls: any = {}, key: string) {
+  return controls[key] !== false
+}
+
 const Comp = defineComponent({
   name: 'ArrayField',
+  inheritAttrs: false,
   props: CommonFieldPropsDefine,
   setup(props) {
     const themeContext = useThemeContext()
 
-    const { componentRef, rendererPropsRef, schemaTitleRef } = useCommonField(
+    const { rendererPropsRef, schemaTitleRef } = useCommonField(
       props,
       SchemaTypes.ARRAY,
       // ThemeRendererComponentNames.ArrayRenderer,
@@ -59,6 +63,22 @@ const Comp = defineComponent({
     const SingleTypeArrayWrapperRef = useComponent(
       ThemeLayoutsNames.SingleTypeArrayWrapper,
     )
+
+    const isMinMaxRef = computed(() => {
+      const {
+        value,
+        schema: { maxItems = Infinity, minItems = 0 },
+      } = props
+
+      const len = Array.isArray(value) ? value.length : 0
+      const isMax = maxItems >= len
+      const isMin = minItems <= len
+
+      return {
+        isMax,
+        isMin,
+      }
+    })
 
     const HeaderRef = useComponent(ThemeLayoutsNames.Header)
 
@@ -89,9 +109,7 @@ const Comp = defineComponent({
     }
 
     const handleValueChange = (index: number, v: any) => {
-      console.log('------------------>', props.value)
       const value: any = props.value || []
-      // ;(props.value as any)[index] = v
       value[index] = v
       props.onChange(value)
     }
@@ -100,16 +118,20 @@ const Comp = defineComponent({
       const schema = props.schema
       const value = (props.value as any[]) || []
       const len = value.length
+      const { uiSchema = {} } = props
+      const { controls = {} } = uiSchema
+      const { isMax, isMin } = isMinMaxRef.value
+      // const { ma } = schema
       switch (action) {
         case ArrayItemAction.DOWN: {
-          if (index < len - 1) {
+          if (index < len - 1 && controlAvailable(controls, 'sortable')) {
             const item = value.splice(index, 1)
             value.splice(index + 1, 0, item)
           }
           break
         }
         case ArrayItemAction.UP: {
-          if (index > 0) {
+          if (index > 0 && controlAvailable(controls, 'sortable')) {
             const item = value.splice(index, 1)
             value.splice(index - 1, 0, item)
           }
@@ -117,11 +139,13 @@ const Comp = defineComponent({
         }
         case ArrayItemAction.ADD: {
           // TODO: should use default value of type
-          value.splice(index + 1, 0, schema.default || undefined)
+          if (controlAvailable(controls, 'addable') && !isMax)
+            value.splice(index + 1, 0, schema.default || undefined)
           break
         }
         case ArrayItemAction.DELETE: {
-          value.splice(index, 1)
+          if (controlAvailable(controls, 'removeable') && !isMin)
+            value.splice(index, 1)
           break
         }
         default: {
@@ -138,25 +162,19 @@ const Comp = defineComponent({
 
     const isMultiSelectionRef = computed(() => {
       const { schema, rootSchema } = props
-      // const items = itemsSchemaRef.value
 
       return isMultiSelect(schema, rootSchema)
-      // return (
-      //   uiSchema?.widget ||
-      //   (items &&
-      //     isObject(items) &&
-      //     ((items as Schema).enum || (items as Schema).enumKeyValue))
-      // )
     })
 
     const classesRef = useStyles()
 
     return () => {
-      const ArrayRenderer: RendererComponentDefine = componentRef.value
       const Header: HeaderDefine = HeaderRef.value
       const SchemaItem = formContextRef.value.SchemaItem
 
       const { value, schema, path, rootSchema, uiSchema, errorSchema } = props
+
+      const { isMin, isMax } = isMinMaxRef.value
 
       const isSingleType = isSingleTypeRef.value
       const isMultiType = Array.isArray(schema.items)
@@ -168,7 +186,6 @@ const Comp = defineComponent({
       const commonProps = {
         isDependenciesKey: false,
         required: false,
-        requiredError: false,
         rootSchema: rootSchema,
       }
 
@@ -189,13 +206,16 @@ const Comp = defineComponent({
         content = (
           <Widget
             {...rendererPropsRef.value}
-            errorSchema={errorSchema}
+            // errorSchema={errorSchema}
             onChange={handleChangeRef.value}
             options={{ ...options, enumOptions, multiple: true }}
           />
         )
       } else if (isSingleType) {
         const SingleTypeArrayWrapper = SingleTypeArrayWrapperRef.value
+        const {
+          options: { controls },
+        } = rendererPropsRef.value
 
         content =
           arr.length > 0 ? (
@@ -208,6 +228,7 @@ const Comp = defineComponent({
                 length={arr.length}
                 index={index}
                 title={rendererPropsRef.value.title}
+                controls={{ ...controls, removable: isMin, addable: isMax }}
               >
                 <SchemaItem
                   {...commonProps}
@@ -217,19 +238,19 @@ const Comp = defineComponent({
                   value={arr[index]}
                   onChange={(v: any) => handleValueChange(index, v)}
                   schema={schema.items as Schema}
-                  errorSchema={errorSchema[index]}
+                  errorSchema={errorSchema[index] || {}}
                   uiSchema={(uiSchema?.items || {}) as VueJsonSchemaConfig}
                 />
               </SingleTypeArrayWrapper>
             ))
-          ) : (
+          ) : controlAvailable(controls, 'addable') && !isMax ? ( // if not addable, not show this
             <a
               onClick={() => arrayItemAction(ArrayItemAction.ADD, 0)}
               class={classes.addBtn}
             >
               <AddIcon /> {schemaTitleRef.value || props.path}
             </a>
-          )
+          ) : null
       } else if (isMultiType) {
         const itemTypes = schema.items as Schema[]
         content = itemTypes.map((item, index) => (
@@ -239,9 +260,9 @@ const Comp = defineComponent({
             schema={item}
             key={index}
             path={`${path}/${index}`}
-            value={(value as any)[index]}
+            value={value && (value as any)[index]}
             onChange={(v: any) => handleValueChange(index, v)}
-            errorSchema={errorSchema[index]}
+            errorSchema={errorSchema[index] || {}}
             uiSchema={
               (uiSchema?.items &&
                 (uiSchema.items as VueJsonSchemaConfig[])[index]) ||
@@ -251,13 +272,7 @@ const Comp = defineComponent({
           />
         ))
       } else {
-        content = (
-          <ArrayRenderer
-            {...rendererPropsRef.value}
-            errorSchema={errorSchema}
-            onChange={handleChangeRef.value}
-          />
-        )
+        throw new Error('not valid array schema')
       }
 
       return [
@@ -266,13 +281,6 @@ const Comp = defineComponent({
         ) : null,
         content,
       ]
-
-      // return (
-      //   <ArrayRenderer
-      //     {...rendererPropsRef.value}
-      //     onChange={handleChangeRef.value}
-      //   />
-      // )
     }
   },
 })

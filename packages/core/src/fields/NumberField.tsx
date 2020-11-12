@@ -1,6 +1,5 @@
 import { defineComponent, computed } from 'vue'
 
-import { RendererComponentDefine, BuiltInWidgets } from '../theme'
 import { CommonFieldPropsDefine, SchemaTypes } from '../types'
 
 import { useCommonField } from './common'
@@ -34,7 +33,7 @@ const Comp = defineComponent({
     }
 
     return () => {
-      const NumberRenderer: RendererComponentDefine = componentRef.value
+      const NumberRenderer = componentRef.value
 
       return (
         <NumberRenderer

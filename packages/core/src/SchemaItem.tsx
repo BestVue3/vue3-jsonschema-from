@@ -78,43 +78,12 @@ export default defineComponent({
     return () => {
       const { uiSchema } = props
       const schema = schemaRef.value
-      // const formContext = formContextRef.value
-
-      // console.log(schema)
-
-      // let Component: any
 
       if (!schema.type) {
         console.warn(`it's better to give every schema a type:`, schema)
       }
 
-      // const type = schema.type || getSchemaType(schema)
-
       const FiledComponent = getFieldComponent(schema, uiSchema)
-
-      // switch (type) {
-      //   case SchemaTypes.STRING:
-      //     Component = StringField
-      //     break
-      //   case SchemaTypes.NUMBER:
-      //   case SchemaTypes.INTEGER:
-      //     Component = NumberField
-      //     break
-      //   case SchemaTypes.ARRAY:
-      //     Component = ArrayField
-      //     break
-      //   case SchemaTypes.OBJECT:
-      //     Component = ObjectField
-      //     break
-      //   case SchemaTypes.BOOLEAN:
-      //     Component = BooleanField
-      //     break
-      //   default:
-      //     console.log('type is not right')
-      //     return null
-      // }
-
-      console.log(toRaw(schema))
 
       return (
         <>

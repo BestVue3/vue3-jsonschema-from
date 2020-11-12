@@ -2,6 +2,7 @@
   "name": "playground",
   "version": "0.0.1",
   "description": "playground",
+  "private": true,
   "keywords": [
     "vue3",
     "jsonschema",
@@ -25,8 +26,8 @@
   },
   "devDependencies": {
     "@vue/babel-plugin-jsx": "^1.0.0-rc.3",
-    "vjsf-theme-default": "^0.0.1",
-    "vue3-jsonschema-form": "^0.0.1",
+    "@vjsf/theme-default": "^0.0.1",
+    "@vjsf/core": "^0.0.1",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

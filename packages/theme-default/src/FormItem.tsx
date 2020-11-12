@@ -25,6 +25,7 @@ const FormItemPropsDefine = {
   uiSchema: {
     type: Object as PropType<any>,
   },
+  hideLabel: Boolean,
 } as const
 
 const useStyles = createUseStyles((theme: any) => ({
@@ -64,6 +65,7 @@ const useStyles = createUseStyles((theme: any) => ({
 }))
 
 export default defineComponent({
+  name: 'FormItem',
   props: FormItemPropsDefine,
   setup(props, { slots }) {
     const classesRef = useStyles()
@@ -77,7 +79,7 @@ export default defineComponent({
     })
 
     return () => {
-      const { id, label, required } = props
+      const { id, label, required, hideLabel } = props
       const helpText = helpTextRef.value
 
       const classes = classesRef.value
@@ -88,12 +90,12 @@ export default defineComponent({
 
       return (
         <div class={classes.formItem}>
-          {label && (
+          {label && !hideLabel ? (
             <label for={id} class={classes.label}>
               <span>{label}</span>
               {required ? <span class={classes.required}> *</span> : null}
             </label>
-          )}
+          ) : null}
           <div class={classes.inputField}>
             {slots.default && slots.default()}
           </div>

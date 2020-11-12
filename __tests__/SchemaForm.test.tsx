@@ -1,11 +1,13 @@
 import { mount } from '@vue/test-utils'
 // import { nextTick, ref, Ref, h } from 'vue'
 
-import { Schema } from '..'
+import { Schema } from '@vjsf/core'
 
-import { widgets, layouts } from 'vjsf-theme-default'
+import { widgets, layouts } from '@vjsf/theme-default'
 
-import App from './test-utils/App'
+import TestApp from './test-utils/App'
+
+const App: any = TestApp
 // import createDefaultTest from './test-utils/createDefaultTest'
 
 describe('SchemaForm:', () => {

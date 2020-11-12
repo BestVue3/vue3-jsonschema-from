@@ -4,14 +4,12 @@ import { ComponentsContext } from './Context'
 import {
   Theme,
   ThemeLayoutsNames,
-  ThemeRendererComponentNames,
-  RendererComponentDefine,
   FormDefine,
-  SingleTypeArrayDefine,
   HeaderDefine,
 } from './ThemeProvider'
 import { BuiltInWidgets, WidgetComponentDefine, getWidget } from './utils'
 import { Schema } from '../types'
+import { SingleTypeArrayDefine } from './types'
 
 export function useThemeContext() {
   const context: Ref<Theme> | undefined = inject(ComponentsContext)

@@ -2567,10 +2567,10 @@
   resolved "https://registry.npm.taobao.org/@vue/shared/download/@vue/shared-3.0.0.tgz?cache=0&sync_timestamp=1600444102720&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.0.0.tgz#ec089236629ecc0f10346b92f101ff4339169f1a"
   integrity sha1-7AiSNmKezA8QNGuS8QH/QzkWnxo=
 
-"@vue/test-utils@2.0.0-beta.5":
-  version "2.0.0-beta.5"
-  resolved "https://registry.npm.taobao.org/@vue/test-utils/download/@vue/test-utils-2.0.0-beta.5.tgz?cache=0&sync_timestamp=1600341259717&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Ftest-utils%2Fdownload%2F%40vue%2Ftest-utils-2.0.0-beta.5.tgz#c5980e3e6d22a1811483577bcfbcc2c4493c4a73"
-  integrity sha1-xZgOPm0ioYEUg1d7z7zCxEk8SnM=
+"@vue/test-utils@^2.0.0-beta.8":
+  version "2.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@vue/test-utils/download/@vue/test-utils-2.0.0-beta.8.tgz?cache=0&sync_timestamp=1604191637215&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Ftest-utils%2Fdownload%2F%40vue%2Ftest-utils-2.0.0-beta.8.tgz#13be1a31f4d6d396e2a9d595d4e0f236421eba98"
+  integrity sha1-E74aMfTW05biqdWV1ODyNkIeupg=
 
 "@vuepress/core@1.5.2":
   version "1.5.2"
@@ -9482,6 +9482,11 @@ json-schema@0.2.3:
   version "0.2.3"
   resolved "https://registry.npm.taobao.org/json-schema/download/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
   integrity sha1-tIDIkuWaLwWVTOcnvT8qTogvnhM=
+
+json-schema@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.npm.taobao.org/json-schema/download/json-schema-0.2.5.tgz#97997f50972dd0500214e208c407efa4b5d7063b"
+  integrity sha1-l5l/UJct0FACFOIIxAfvpLXXBjs=
 
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"

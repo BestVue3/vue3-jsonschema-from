@@ -1,4 +1,4 @@
-import { ThemeProvider, Theme } from 'vue3-jsonschema-form'
+import { ThemeProvider, Theme } from '@vjsf/core'
 import { SetupContext, PropType } from 'vue'
 
 import Form from './Form'
@@ -8,39 +8,42 @@ import SingleTypeArrayWrapper from './SingleTypeArrayWrapper'
 import TextWidget from './widgets/TextWidget'
 import TextareaWidget from './widgets/TextareaWidget'
 import CheckboxesWidget from './widgets/CheckboxesWidget'
+import CheckboxWidget from './widgets/CheckboxWidget'
 import RadioWidget from './widgets/RadioWidget'
 import SelectWidget from './widgets/SelectWidget'
 import NumberWidget from './widgets/NumberWidget'
+import PasswordWidget from './widgets/PasswordWidget'
+import ColorWidget from './widgets/ColorWidget'
 
 import { ThemeProvider as StyleThemeProvide } from './style-theme'
 
 export const widgets = {
   TextWidget,
   TextareaWidget,
-  CheckboxWidget: TextWidget,
+  CheckboxWidget,
   CheckboxesWidget,
   RadioWidget,
   SelectWidget,
   HiddenWidget: TextWidget,
-  PasswordWidget: TextWidget,
+  PasswordWidget,
   EmailWidget: TextWidget,
   URLWidget: TextWidget,
   DateWidget: TextWidget,
   DateTimeWidget: TextWidget,
-  ColorWidget: TextWidget,
+  ColorWidget,
   RangeWidget: TextWidget,
   NumberWidget,
 }
 
 export const layouts = {
-  Form,
+  Form: Form,
   Header,
   SingleTypeArrayWrapper: SingleTypeArrayWrapper,
 }
 
 export const theme: Theme = {
   widgets,
-  layouts,
+  layouts: layouts as any, // TODO: fix it
 }
 
 interface Props<T> {

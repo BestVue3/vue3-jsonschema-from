@@ -1,9 +1,8 @@
-import { ref, Ref, defineComponent } from 'vue'
+import { ref, Ref, defineComponent, nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 
 import App from '../test-utils/App'
-import { widgets } from 'vjsf-theme-default/lib'
-import { nextTick } from 'process'
+import { widgets } from '@vjsf/theme-default'
 
 describe('dependencies:', () => {
   it('should render form based on value', done => {

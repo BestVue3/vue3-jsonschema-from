@@ -37,7 +37,7 @@ export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}) {
   } else if (hasOwnProperty(schema, 'allOf') && Array.isArray(schema.allOf)) {
     return {
       ...schema,
-      allOf: schema.allOf.map(allOfSubschema =>
+      allOf: (schema.allOf as any).map((allOfSubschema: any) =>
         retrieveSchema(allOfSubschema, rootSchema, formData),
       ),
     }
@@ -96,7 +96,7 @@ export function stubExistingAdditionalProperties(
   schema = {
     ...schema,
     properties: { ...schema.properties },
-  }
+  } as any
 
   Object.keys(formData).forEach(key => {
     if ((schema as any).properties.hasOwnProperty(key)) {
@@ -105,14 +105,14 @@ export function stubExistingAdditionalProperties(
     }
 
     let additionalProperties
-    if (schema.additionalProperties.hasOwnProperty('$ref')) {
+    if (schema.additionalProperties!.hasOwnProperty('$ref')) {
       additionalProperties = retrieveSchema(
-        { $ref: schema.additionalProperties['$ref'] },
+        { $ref: (schema.additionalProperties as any).$ref },
         rootSchema,
         formData,
       )
-    } else if (schema.additionalProperties.hasOwnProperty('type')) {
-      additionalProperties = { ...schema.additionalProperties }
+    } else if (schema.additionalProperties!.hasOwnProperty('type')) {
+      additionalProperties = { ...(schema.additionalProperties as any) }
     } else {
       additionalProperties = { type: guessType(formData[key]) }
     }
@@ -262,7 +262,7 @@ function withDependentSchema(
     throw new Error(`invalid: it is some ${typeof oneOf} instead of an array`)
   }
   // Resolve $refs inside oneOf.
-  const resolvedOneOf = oneOf.map(subschema =>
+  const resolvedOneOf = (oneOf as any).map((subschema: any) =>
     hasOwnProperty(subschema, '$ref')
       ? resolveReference(subschema, rootSchema, formData)
       : subschema,
@@ -395,7 +395,7 @@ export function getSchemaType(schema: Schema): string | undefined {
     return t.find(type => type !== 'null')
   }
 
-  return type
+  return type as any
 
   // let { type } = schema
 
@@ -455,7 +455,7 @@ export function isSelect(_schema: any, rootSchema: Schema = {}) {
   if (Array.isArray(schema.enum)) {
     return true
   } else if (Array.isArray(altSchemas)) {
-    return altSchemas.every(altSchemas => isConstant(altSchemas))
+    return (altSchemas as any).every((as: any) => isConstant(as))
   }
   return false
 }

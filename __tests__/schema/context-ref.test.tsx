@@ -1,7 +1,8 @@
-import { Ref, ref } from 'vue'
+import { Ref, ref, nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
-import App from '../test-utils/App'
-import { nextTick } from 'process'
+import TestApp from '../test-utils/App'
+
+const App: any = TestApp
 
 describe('contextRef', () => {
   it('should expose doValidate to contextRef', done => {

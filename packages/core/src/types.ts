@@ -1,17 +1,17 @@
 import {
   PropType,
-  ComponentObjectPropsOptions,
   ComponentPublicInstance,
-  Prop,
   Ref,
   ExtractPropTypes,
   VNodeChild,
+  DefineComponent,
 } from 'vue'
 
+import { JSONSchema6, JSONSchema7 } from 'json-schema'
 import { Options as AjvOptions } from 'ajv'
 
 import { AjvFormat, AjvKeyword } from './validator/types'
-import { WidgetComponentDefine } from '../lib/theme/utils'
+import { WidgetComponentDefine } from './theme/utils'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -41,46 +41,56 @@ export interface VueJsonSchemaConfig {
   widget?: 'checkbox' | 'textarea' | 'select' | 'radio' | 'range' | string
   items?: UISchema | UISchema[]
   propertiesOrder?: string[]
+  controls?: {
+    sortable?: boolean
+    removeable?: boolean
+    addable?: boolean
+  }
 }
 
 type SchemaRef = { $ref: string }
 
-// type Schema = any
-export interface Schema {
-  type?: SchemaTypes | string
-  const?: any
-  format?: string
-
-  title?: string
-  default?: any
-
-  properties?: {
-    [key: string]: Schema | { $ref: string }
-  }
-  items?: Schema | Schema[] | SchemaRef
-  uniqueItems?: any
-  dependencies?: {
-    [key: string]: string[] | Schema | SchemaRef
-  }
-  oneOf?: Schema[]
-  anyOf?: Schema[]
-  allOf?: Schema[]
+export type Schema = (JSONSchema6 | JSONSchema7) & {
+  enumNames?: (string | number)[]
   vjsf?: VueJsonSchemaConfig
-  required?: string[]
-  enum?: any[]
-  enumNames?: any[]
-  enumKeyValue?: any[]
-  additionalProperties?: any
-  additionalItems?: Schema
-
-  minLength?: number
-  maxLength?: number
-  minimun?: number
-  maximum?: number
-  multipleOf?: number
-  exclusiveMaximum?: number
-  exclusiveMinimum?: number
 }
+
+// type Schema = any
+// export interface Schema {
+//   type?: SchemaTypes | string
+//   const?: any
+//   format?: string
+
+//   title?: string
+//   default?: any
+
+//   properties?: {
+//     [key: string]: Schema | { $ref: string }
+//   }
+//   items?: Schema | Schema[] | SchemaRef
+//   uniqueItems?: any
+//   dependencies?: {
+//     [key: string]: string[] | Schema | SchemaRef
+//   }
+//   oneOf?: Schema[]
+//   anyOf?: Schema[]
+//   allOf?: Schema[]
+//   vjsf?: VueJsonSchemaConfig
+//   required?: string[]
+//   enum?: any[]
+//   enumNames?: any[]
+//   enumKeyValue?: any[]
+//   additionalProperties?: any
+//   additionalItems?: Schema
+
+//   minLength?: number
+//   maxLength?: number
+//   minimun?: number
+//   maximum?: number
+//   multipleOf?: number
+//   exclusiveMaximum?: number
+//   exclusiveMinimum?: number
+// }
 
 // export interface UISchemaNest {
 //   [property: string]: UISchema
@@ -113,24 +123,27 @@ export interface JsonSchemFormPlugin {
   customKeywords?: CustomKeyword[] | CustomKeyword
 }
 
-export interface A extends ComponentObjectPropsOptions {
-  path: Prop<string>
-  value: Prop<any>
-  schema: Prop<Schema>
-  rootSchema: Prop<Schema>
-  uiSchema: Prop<UISchema>
-  onChange: Prop<(value: any) => void>
-  requiredError: Prop<boolean>
-  required: Prop<boolean>
+// export interface A extends ComponentObjectPropsOptions {
+//   path: Prop<string>
+//   value: Prop<any>
+//   schema: Prop<Schema>
+//   rootSchema: Prop<Schema>
+//   uiSchema: Prop<UISchema>
+//   onChange: Prop<(value: any) => void>
+//   requiredError: Prop<boolean>
+//   required: Prop<boolean>
+// }
+
+// fix error TS2456: Type alias 'ErrorSchema' circularly references itself
+interface ErrorSchemaObject {
+  [level: string]: ErrorSchema
 }
 
-export type ErrorSchema = {
-  [level: string]: ErrorSchema
-} & {
+export type ErrorSchema = ErrorSchemaObject & {
   __errors: string[]
 }
 
-export const CommonFieldPropsDefine = {
+export const CommonPropsDefine = {
   id: {
     type: String as PropType<string>,
     required: true,
@@ -170,6 +183,10 @@ export const CommonFieldPropsDefine = {
     type: Boolean as PropType<boolean>,
     required: true,
   },
+} as const
+
+export const CommonFieldPropsDefine = {
+  ...CommonPropsDefine,
   errorSchema: {
     type: Object as PropType<ErrorSchema>,
     required: true,
@@ -189,7 +206,7 @@ export interface WidgetOptions {
   multiple?: boolean
 }
 export const CommonWidgetPropsDefine = {
-  ...CommonFieldPropsDefine,
+  ...CommonPropsDefine,
   title: {
     type: String as PropType<string>,
     required: true,
@@ -219,7 +236,7 @@ export const SchemaFormPropsDefine = {
     required: true,
   },
   formProps: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{ [key: string]: any }>,
   },
   plugins: {
     type: Array as PropType<JsonSchemFormPlugin[] | JsonSchemFormPlugin>,
@@ -237,4 +254,9 @@ export const SchemaFormPropsDefine = {
   contextRef: {
     type: Object as PropType<Ref>,
   },
+  customValidate: {
+    type: Function as PropType<(data: any, errors: any) => void>,
+  },
 } as const
+
+export * from './theme/types'

@@ -1,9 +1,9 @@
-import { defineComponent, PropType, computed, VNodeChild } from 'vue'
+import { defineComponent, shallowRef, watchEffect } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
 import { renderItem } from '../../utils'
 import { CommonWidgetPropsDefine } from '../../types'
-import { SchemaTypes } from 'vue3-jsonschema-form'
+import { SchemaTypes } from '@vjsf/core'
 
 const useStyles = createUseStyles({
   input: {
@@ -16,29 +16,51 @@ const useStyles = createUseStyles({
 })
 
 const getWidget = (uiSchema: any) => {
-  return (uiSchema && uiSchema.widget) || ''
+  return (uiSchema && uiSchema.widget) || '' // no default so `type` pass down will work
 }
 
 export default defineComponent({
   name: 'BaseInput',
-  props: CommonWidgetPropsDefine,
-  setup(props) {
+  inheritAttrs: false, // keep input attrs out of FormItem
+  props: {
+    ...CommonWidgetPropsDefine,
+    type: String,
+    inputClass: String,
+  },
+  setup(props, { attrs }) {
     const classesRef = useStyles()
 
+    const currentValue = shallowRef(props.value)
+    const inputRef = shallowRef()
+
     const handleChange = (e: any) => {
+      currentValue.value = e.target.value
       props.onChange(e.target.value)
     }
+
+    // make input controlled
+    watchEffect(
+      () => {
+        if (inputRef.value && currentValue.value !== props.value) {
+          currentValue.value = props.value
+        }
+      },
+      {
+        flush: 'post',
+      },
+    )
 
     return () => {
       const classes = classesRef.value
 
-      const { id, value, uiSchema, schema } = props
+      const { id, value, schema, type, inputClass } = props
 
       const defaultInputType =
-        schema.type === SchemaTypes.INTEGER ||
+        type ||
+        (schema.type === SchemaTypes.INTEGER ||
         schema.type === SchemaTypes.NUMBER
           ? 'number'
-          : 'text'
+          : 'text')
 
       const widget = getWidget(props.uiSchema)
 
@@ -46,16 +68,21 @@ export default defineComponent({
 
       return renderItem(props, () => {
         const commonProps = {
-          class: classes.input,
+          class: `${classes.input} ${inputClass}`,
           id,
           value: (value as any) || '',
           onInput: handleChange,
         }
 
         return widget === 'textarea' ? (
-          <textarea {...commonProps} rows={5} />
+          <textarea {...attrs} {...commonProps} rows={5} ref={inputRef} />
         ) : (
-          <input {...commonProps} type={widget || defaultInputType} />
+          <input
+            {...attrs}
+            {...commonProps}
+            type={widget || defaultInputType}
+            ref={inputRef}
+          />
         )
       })
     }

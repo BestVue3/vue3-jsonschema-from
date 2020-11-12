@@ -1,11 +1,12 @@
 import { defineComponent, PropType } from 'vue'
+import { SingleTypeArrayProps } from '@vjsf/core'
+
+import { createUseStyles } from 'vue-jss'
 
 import UpIcon from './icons/up'
 import DownIcon from './icons/down'
 import DeleteIcon from './icons/delete'
 import AddIcon from './icons/add'
-
-import { createUseStyles } from 'vue-jss'
 
 const useStyles = createUseStyles((theme: any) => ({
   container: {
@@ -24,57 +25,46 @@ const useStyles = createUseStyles((theme: any) => ({
 }))
 
 export default defineComponent({
-  props: {
-    onDown: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onUp: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onDelete: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onAdd: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-    length: {
-      type: Number,
-      required: true,
-    },
-  },
+  props: SingleTypeArrayProps,
   setup(props) {
     const classesRef = useStyles()
     return () => {
-      const { onDown, onUp, onAdd, onDelete, length, index } = props
+      const {
+        onDown,
+        onUp,
+        onAdd,
+        onDelete,
+        length,
+        index,
+        controls = {},
+      } = props
 
       const classes = classesRef.value
 
+      const { sortable = true, removable = true, addable = true } = controls
+
       return (
         <div class={classes.container}>
-          {index < length - 1 && (
+          {index < length - 1 && sortable ? (
             <a class={classes.action} onClick={onDown}>
               <DownIcon />
             </a>
-          )}
-          {index > 0 && (
+          ) : null}
+          {index > 0 && sortable ? (
             <a class={classes.action} onClick={onUp}>
               <UpIcon />
             </a>
-          )}
-          <a class={classes.action} onClick={onDelete}>
-            <DeleteIcon />
-          </a>
-          <a class={classes.action} onClick={onAdd}>
-            <AddIcon />
-          </a>
+          ) : null}
+          {removable ? (
+            <a class={classes.action} onClick={onDelete}>
+              <DeleteIcon />
+            </a>
+          ) : null}
+          {addable ? (
+            <a class={classes.action} onClick={onAdd}>
+              <AddIcon />
+            </a>
+          ) : null}
         </div>
       )
     }

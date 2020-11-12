@@ -7,7 +7,19 @@ export default defineComponent({
   props: CommonWidgetPropsDefine,
   setup(props) {
     return () => {
-      return <BaseInput {...props} />
+      const { schema } = props
+
+      const { multipleOf } = schema
+
+      const attrs: any = {
+        ...props,
+      }
+
+      if (typeof multipleOf === 'number') {
+        attrs.step = multipleOf
+      }
+
+      return <BaseInput {...attrs} />
     }
   },
 })

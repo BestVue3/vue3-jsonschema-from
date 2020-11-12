@@ -1,10 +1,10 @@
 import type { PropType, Prop } from 'vue'
 
-import { CommonFieldPropsDefine } from 'vue3-jsonschema-form'
+import { CommonFieldPropsDefine } from '@vjsf/core'
 
 export { CommonFieldPropsDefine }
 
-export { CommonWidgetPropsDefine } from 'vue3-jsonschema-form'
+export { CommonWidgetPropsDefine } from '@vjsf/core'
 
 // export const CommonWidgetPropsDefine = {
 //   ...CommonFieldPropsDefine,

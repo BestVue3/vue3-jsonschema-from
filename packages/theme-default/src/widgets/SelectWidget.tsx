@@ -1,7 +1,7 @@
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { createUseStyles } from 'vue-jss'
 import { CommonWidgetPropsDefine } from '../types'
-import { Schema } from 'vue3-jsonschema-form'
+import { Schema } from '@vjsf/core'
 import { renderItem } from '../utils'
 
 const useStyles = createUseStyles({
@@ -17,22 +17,13 @@ const useStyles = createUseStyles({
   },
 })
 
-const Selection = defineComponent({
-  name: 'Selection',
+const SelectWidget = defineComponent({
+  name: 'SelectWidget',
   props: {
     ...CommonWidgetPropsDefine,
-    // enumOptions: {
-    //   type: Array as PropType<
-    //     {
-    //       key: string | number
-    //       value: string | number
-    //     }[]
-    //   >,
-    //   required: true,
+    // multiple: {
+    //   type: Boolean,
     // },
-    multiple: {
-      type: Boolean,
-    },
   },
   setup(props) {
     const classesRef = useStyles()
@@ -82,45 +73,4 @@ const Selection = defineComponent({
   },
 })
 
-// function getEnumOptions(schema: Schema) {
-//   if (schema.enumKeyValue) return schema.enumKeyValue
-//   if (schema.enum) return schema.enum.map(k => ({ key: k, value: k }))
-//   return []
-// }
-
-// export function withCommonSelection(Comp: any) {
-//   return defineComponent({
-//     name: 'WithSelectionWrapper',
-//     props: CommonWidgetPropsDefine,
-//     setup(props) {
-//       return () => {
-//         const { schema, uiSchema, onChange, value } = props
-
-//         const widget = uiSchema && uiSchema.widget
-
-//         if (
-//           schema &&
-//           (schema.enum || schema.enumKeyValue) &&
-//           (!widget || widget === 'selection')
-//         ) {
-//           // render selection
-//           const options = getEnumOptions(schema)
-
-//           return renderItem(props, id => (
-//             <Selection
-//               options={options}
-//               onChange={onChange}
-//               value={value as any}
-//               id={id}
-//               multiple={false}
-//             />
-//           ))
-//         }
-
-//         return <Comp {...props} />
-//       }
-//     },
-//   })
-// }
-
-export default Selection
+export default SelectWidget

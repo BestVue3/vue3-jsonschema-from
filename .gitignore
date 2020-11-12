@@ -1,6 +1,7 @@
 node_modules
 *-error.log
 .vscode
+.idea
 .npmrc
 dist
 coverage

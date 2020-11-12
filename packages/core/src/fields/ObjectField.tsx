@@ -159,7 +159,7 @@ export default defineComponent({
               path={`${path}/${k}`}
               key={k}
               value={value && (value as any)[k]}
-              errorSchema={errorSchema[k]}
+              errorSchema={errorSchema[k] || {}}
               onChange={(v: any) => handlePropertyChange(k, v)}
               // TODO:
               isDependenciesKey={false}

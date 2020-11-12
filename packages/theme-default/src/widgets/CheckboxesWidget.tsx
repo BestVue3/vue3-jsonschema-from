@@ -2,17 +2,18 @@ import { defineComponent, PropType, ref, Events } from 'vue'
 import { CommonWidgetPropsDefine } from '../types'
 
 export default defineComponent({
+  name: 'CheckboxesWidget',
   props: {
     ...CommonWidgetPropsDefine,
-    enumOptions: {
-      type: Array as PropType<
-        {
-          key: string | number
-          value: string | number
-        }[]
-      >,
-      required: true,
-    },
+    // enumOptions: {
+    //   type: Array as PropType<
+    //     {
+    //       key: string | number
+    //       value: string | number
+    //     }[]
+    //   >,
+    //   required: true,
+    // },
   },
   setup(props) {
     const handleChange = (event: Event) => {
@@ -37,8 +38,9 @@ export default defineComponent({
     }
 
     return () => {
-      console.log(props.value)
-      const { enumOptions } = props
+      const { options } = props
+
+      const { enumOptions = [] } = options
 
       return (
         <div>
@@ -46,7 +48,7 @@ export default defineComponent({
             <div>
               <input
                 type="checkbox"
-                value={o.value}
+                value={o.value as any}
                 checked={
                   Array.isArray(props.value) &&
                   props.value.indexOf(o.value) > -1

@@ -1,5 +1,5 @@
-import { CustomFormat, CommonWidgetPropsDefine } from 'vue3-jsonschema-form'
-import { renderItem } from 'vjsf-theme-default'
+import { CustomFormat, CommonWidgetPropsDefine } from '@vjsf/core'
+import { renderItem } from '@vjsf/theme-default'
 import { defineComponent } from 'vue'
 import { createUseStyles } from 'vue-jss'
 

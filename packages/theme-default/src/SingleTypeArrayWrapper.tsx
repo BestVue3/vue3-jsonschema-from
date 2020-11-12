@@ -2,6 +2,8 @@ import { defineComponent, PropType } from 'vue'
 
 import { createUseStyles } from 'vue-jss'
 
+import { SingleTypeArrayProps } from '@vjsf/core'
+
 import ArrayActions from './components/ArrayActions'
 
 const useStyles = createUseStyles(theme => ({
@@ -28,36 +30,7 @@ const useStyles = createUseStyles(theme => ({
 
 export default defineComponent({
   name: 'SingleTypeArrayWrapper',
-  props: {
-    onDown: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onUp: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onDelete: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    onAdd: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-    length: {
-      type: Number,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-  },
+  props: SingleTypeArrayProps,
   setup(props, { slots }) {
     const classesRef = useStyles()
 

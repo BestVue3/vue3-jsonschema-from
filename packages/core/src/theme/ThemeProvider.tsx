@@ -1,4 +1,4 @@
-import { defineComponent, computed, provide, ComponentPublicInstance, ExtractPropTypes } from 'vue'
+import { defineComponent, computed, provide, ComponentPublicInstance, ExtractPropTypes, DefineComponent } from 'vue'
 
 import type { PropType } from 'vue'
 
@@ -9,19 +9,7 @@ import { RegisteredWidgets } from './utils'
 
 import NotFoundWidget from './NotFoundWidget'
 
-const HeaderProps = {
-  title: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String as PropType<'array' | 'object'>,
-    required: true
-  }
-} as const
-
-type RendererComponentType = ComponentPublicInstance<ExtractPropTypes<typeof CommonFieldPropsDefine>>
-type HeaderComponentType = ComponentPublicInstance<ExtractPropTypes<typeof HeaderProps>>
+import { SingleTypeArrayDefine } from './types'
 
 // export type FORM = 'Form' | string
 export enum ThemeLayoutsNames {
@@ -37,26 +25,10 @@ export enum ThemeRendererComponentNames {
   BooleanRenderer = 'BooleanRenderer',
 }
 
-declare type ComponentPublicInstanceConstructor<T extends ComponentPublicInstance> = {
-  new (): T;
-};
+// export type RendererComponentDefine = ComponentPublicInstanceConstructor<RendererComponentType>
+export type FormDefine = DefineComponent<any, {}, {}>
+export type HeaderDefine = DefineComponent<any, {}, {}>
 
-export type RendererComponentDefine = ComponentPublicInstanceConstructor<RendererComponentType>
-export type FormDefine = ComponentPublicInstanceConstructor<ComponentPublicInstance<any>>
-export type HeaderDefine = ComponentPublicInstanceConstructor<HeaderComponentType>
-export type SingleTypeArrayDefine = ComponentPublicInstanceConstructor<ComponentPublicInstance<any>>
-
-export interface Components {
-  [ThemeLayoutsNames.Form]: FormDefine,
-  [ThemeLayoutsNames.SingleTypeArrayWrapper]: SingleTypeArrayDefine,
-  [ThemeLayoutsNames.Header]: HeaderDefine
-
-  [ThemeRendererComponentNames.StringRenderer]: RendererComponentDefine,
-  [ThemeRendererComponentNames.NumberRenderer]: RendererComponentDefine,
-  [ThemeRendererComponentNames.ArrayRenderer]: RendererComponentDefine,
-  [ThemeRendererComponentNames.BooleanRenderer]: RendererComponentDefine
-  // [key: string]: any
-}
 
 export interface Layouts {
   [ThemeLayoutsNames.Form]: FormDefine,

@@ -34,7 +34,7 @@ export enum BuiltInWidgets {
   NumberWidget = 'NumberWidget',
 }
 
-const widgetMap = {
+export const widgetMap = {
   boolean: {
     checkbox: BuiltInWidgets.CheckboxWidget,
     radio: BuiltInWidgets.RadioWidget,

@@ -1,4 +1,4 @@
-import { CustomKeyword } from 'vue3-jsonschema-form'
+import { CustomKeyword } from '@vjsf/core'
 import { defineComponent } from 'vue'
 
 const customKeyworkd: CustomKeyword = {

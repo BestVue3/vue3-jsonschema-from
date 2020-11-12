@@ -272,7 +272,7 @@ export function toErrorList(errorSchema: ErrorSchema, fieldName = 'root') {
   let errorList: FormatedErrorObject[] = []
   if ('__errors' in errorSchema) {
     errorList = errorList.concat(
-      errorSchema.__errors.map(stack => {
+      errorSchema.__errors!.map(stack => {
         return {
           stack: `${fieldName}: ${stack}`,
         } as FormatedErrorObject
@@ -327,11 +327,15 @@ function toRaw(p: any) {
   return p.__get_raw__
 }
 
-function createErrorHandlerProxy(raw: object) {
+function createErrorHandlerProxy(raw: object = {}) {
   return new Proxy(raw, {
     get(target, key, receiver) {
       if (key === 'addError') {
-        return (message: string) => (target as any).__errors.push(message)
+        return (message: string) => {
+          const t: any = target
+          if (t.__errors) t.__errors.push(message)
+          else t.__errors = [message]
+        }
       }
 
       if (key === '__get_raw__') {

@@ -1,5 +1,5 @@
 {
-  "name": "vue3-jsonschema-form",
+  "name": "@vjsf/core",
   "version": "0.0.1",
   "description": "the core package of vue3 jsonschema form",
   "keywords": [
@@ -22,7 +22,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "jest"
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/json-schema-merge-allof": "^0.6.0",
     "@types/lodash.topath": "^4.5.6",
-    "vjsf-theme-default": "^0.0.1"
+    "@vjsf/theme-default": "^0.0.1"
   },
   "dependencies": {
     "json-schema-merge-allof": "^0.7.0",

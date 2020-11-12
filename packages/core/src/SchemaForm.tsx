@@ -1,5 +1,4 @@
-import { defineComponent, computed, provide, watch, isRef, ref, toRaw } from 'vue'
-const i18n = require('ajv-i18n')
+import { defineComponent, computed, provide, watch, isRef, ref, Ref, toRaw } from 'vue'
 
 import { useComponent, ThemeLayoutsNames as TCN } from './theme'
 import { VJSFContext } from './Context'
@@ -8,10 +7,9 @@ import SchemaItem from './SchemaItem'
 
 import { Schema, JsonSchemFormPlugin, UISchema, SchemaFormPropsDefine, ErrorSchema } from './types'
 
-import type { Ref, PropType } from 'vue'
 import type { CreateInstanceOptions, FormatedErrorObject } from './validator'
 
-function transformeOptions(props: any) {
+function transformOptions(props: any) {
   return computed(() => {
 
     const { ajvInstanceOptions, plugins } = props
@@ -87,8 +85,10 @@ function transformeOptions(props: any) {
 
 export default defineComponent({
   name: 'JsonSchemaForm',
-  props: SchemaFormPropsDefine,
-  setup(props, { slots }) {
+  props: {
+    ...SchemaFormPropsDefine,
+  },
+  setup(props) {
     const Form = useComponent(TCN.Form)
 
     /**
@@ -109,7 +109,7 @@ export default defineComponent({
       // }
     }
 
-    const transformedOptions = transformeOptions(props)
+    const transformedOptions = transformOptions(props)
 
     const validator = computed(() => {
 
@@ -121,24 +121,22 @@ export default defineComponent({
     const context = computed(() => {
       const { locale } = props
       const { formatMaps } = transformedOptions.value
-      const v = validator.value
+      // const v = validator.value
 
       return {
         formatMaps,
         SchemaItem,
         validate: (schema: Schema, data: any) => {
-          const valid = v.validate(schema, data)
-
-          i18n[locale](v.errors)
-
-          const errors = v.errors
+          const {
+            errorSchema,
+            errors
+          } = validateFormData(toRaw(data), toRaw(schema), validator.value, locale, props.customValidate)
 
           return {
-            valid,
-            errors,
+            errorSchema, errors,
+            valid: errors.length === 0
           }
         },
-        // errors: formErrorsRef.value
       }
     })
 
@@ -148,36 +146,22 @@ export default defineComponent({
       if (isRef(ref)) {
         ref.value = {
           doValidate: () => {
-            const { schema, value, locale } = props
+            const { schema, value, locale, customValidate } = props
 
             const {
               errorSchema,
               errors
-            } = validateFormData(toRaw(value), toRaw(schema), validator.value, locale)
+            } = validateFormData(toRaw(value), toRaw(schema), validator.value, locale, customValidate)
+
+            formErrorsRef.value = {
+              errors,
+              errorSchema
+            }
 
             return {
               errorSchema, errors,
               valid: errors.length === 0
             }
-
-            // try {
-            //   const valid = validator.value.validate(props.schema, props.value)
-
-            //   formErrorsRef.value = validator.value.errors || []
-
-            //   i18n[props.locale](validator.value.errors)
-
-            //   return {
-            //     valid,
-            //     errors: validator.value.errors
-            //   }
-            // } catch(err) {
-            //   // TODO: add schemaError
-            //   return {
-            //     valid: false,
-            //     errors: []
-            //   }
-            // }
           }
         }
       }
@@ -199,7 +183,7 @@ export default defineComponent({
             uiSchema={uiSchema || {}}
             schema={schema}
             path=""
-            errorSchema={errorSchema}
+            errorSchema={errorSchema || {}}
             onChange={handleChange}
           />
         </Form.value>

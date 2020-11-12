@@ -2,23 +2,28 @@ export default {
   name: 'Test',
   schema: {
     type: 'object',
-    oneOf: [
-      {
-        properties: {
-          name: {
-            type: 'string',
-          },
+    properties: {
+      array: {
+        type: 'array',
+        items: {
+          type: 'string',
+          enum: ['1', '2', '3'],
         },
+        uniqueItems: true,
       },
-      {
-        properties: {
-          age: {
-            type: 'number',
-          },
-        },
+      color: {
+        type: 'string',
+        format: 'color',
       },
-    ],
+    },
   },
-  uiSchema: {},
+  uiSchema: {
+    widget: 'checkboxes',
+  },
   default: {},
+  customValidate: (data: any, errors: any) => {
+    if (!data.array || data.array.length < 2) {
+      errors.array.addError('数组不能少于两个')
+    }
+  },
 }

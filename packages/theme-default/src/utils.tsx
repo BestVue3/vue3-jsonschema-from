@@ -3,11 +3,16 @@ import FormItem from './FormItem'
 import { CommonWidgetPropsDefine } from './types'
 import { ExtractPropTypes } from 'vue'
 
+interface RenderItemOptiopns {
+  hideLabel?: boolean
+}
+
 export function renderItem(
   props: ExtractPropTypes<typeof CommonWidgetPropsDefine>,
   renderChildren: (id: string) => any,
+  options: RenderItemOptiopns = {},
 ) {
-  const { errors, title, path, required, requiredError, uiSchema } = props
+  const { errors, title, path, required, uiSchema } = props
 
   const id = `vjsf-${path}`
 
@@ -17,7 +22,7 @@ export function renderItem(
       label={title}
       errors={errors}
       required={required}
-      requiredError={requiredError}
+      // requiredError={requiredError}
       uiSchema={uiSchema}
     >
       {renderChildren(id)}

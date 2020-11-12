@@ -1,6 +1,8 @@
-import { Schema } from '../../'
+import { Schema } from '@vjsf/core'
 import { mount } from '@vue/test-utils'
-import App from '../test-utils/App'
+import TestApp from '../test-utils/App'
+
+const App: any = TestApp
 
 interface Options {
   schema: Schema

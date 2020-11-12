@@ -1,7 +1,9 @@
 import { mount } from '@vue/test-utils'
-import { widgets, layouts } from 'vjsf-theme-default'
+import { widgets, layouts } from '@vjsf/theme-default'
 
-import App from '../test-utils/App'
+import TestApp from '../test-utils/App'
+
+const App: any = TestApp
 
 describe('value change', () => {
   it('string should update when StringRenderer fire `onChange`', () => {
