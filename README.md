@@ -6,7 +6,7 @@ If you:
 
 - want to build dynamic form which you try to save the form config into your database
 - tried of writting form code by typing every field
-- to build some system which your user can build a form by Drag And Drop
+- try to build some system which your user can build a form by Drag And Drop
 
 you should try this.
 
