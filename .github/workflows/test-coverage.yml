@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npx lerna init
+      - run: npx lerna bootstrap
       - run: npm run test:cov
         env:
           CI: true
