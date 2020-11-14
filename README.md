@@ -1,5 +1,11 @@
 # vue3 jsonschema form
 
+![Coverage](https://img.shields.io/coveralls/github/pure-vue/vue3-jsonschema-from)
+![License](https://img.shields.io/npm/l/@v3jsf/core)
+![Version](https://img.shields.io/npm/v/@v3jsf/core)
+
+> This library is still under eary developing, some api will change before we reach `1.0.0` version. You should decided if you can catch up when api changed if you want to use this lib now.
+
 Web Forms never come that easy, Just vue3 component and JsonSchema, you can nearly do everything to build your own form.
 
 If you:
