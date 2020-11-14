@@ -84,6 +84,7 @@
     "test:cov": "jest --coverage",
     "play": "lerna run --scope playground dev --stream",
     "dev": "gulp dev",
+    "build": "gulp compile",
     "release": "np patch",
     "bootstrap": "lerna bootstrap"
   },

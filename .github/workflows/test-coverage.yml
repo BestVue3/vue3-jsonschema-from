@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npx lerna bootstrap
+      - run: npm run build
       - run: npm run test:cov
         env:
           CI: true
