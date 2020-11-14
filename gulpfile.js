@@ -4,15 +4,12 @@ const babel = require('gulp-babel')
 const merge = require('merge2')
 var rimraf = require('rimraf')
 
-const PKGS_EXPORT = ['core', 'theme-default']
-const PKGS_INNER = ['playground']
-
-function compilePackage(pkg, tsProject) {
+function compilePackage(pkg, tsProject, dev = true) {
   // return function(cb) {
   // console.log('-------->')
   tsProject = tsProject || ts.createProject('tsconfig.json')
   const pkgPath = `packages/${pkg}`
-  rimraf.sync(`${pkgPath}/dist`)
+  if (!dev) rimraf.sync(`${pkgPath}/lib`)
   const tsReslut = gulp
     .src([`${pkgPath}/src/**/*.ts`, `${pkgPath}/src/**/*.tsx`]) // or tsProject.src()
     .pipe(tsProject())
@@ -26,13 +23,29 @@ function compilePackage(pkg, tsProject) {
   // }
 }
 
-function compile() {
-  const pkgs = PKGS_EXPORT
-  const builds = pkgs.map(pkg => {
-    return compilePackage(pkg)
-  })
-  // console.log(builds)
-  return merge(...builds)
+// function compile() {
+//   const pkgs = PKGS_EXPORT
+//   const builds = pkgs.map(pkg => {
+//     return compilePackage(pkg)
+//   })
+//   // console.log(builds)
+//   return merge(...builds)
+// }
+
+function compileCore() {
+  return compilePackage(
+    'core',
+    ts.createProject('packages/core/tsconfig.json'),
+    false,
+  )
+}
+
+function compileThemeDefault() {
+  return compilePackage(
+    'theme-default',
+    ts.createProject('packages/theme-default/tsconfig.json'),
+    false,
+  )
 }
 
 function dev() {
@@ -57,5 +70,5 @@ function dev() {
   )
 }
 
-exports.compile = compile
+exports.compile = gulp.series(compileCore, compileThemeDefault)
 exports.dev = dev
