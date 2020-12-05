@@ -1,6 +1,6 @@
 {
   "name": "@v3jsf/theme-default",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "the default theme for vue3 jsonschema form",
   "keywords": [
     "theme-default"
@@ -27,5 +27,5 @@
   "devDependencies": {
     "@vjsf/core": "^0.0.1"
   },
-  "gitHead": "4a6630682d4c3bc4848cbd52811a53c5ea1794ee"
+  "gitHead": "545660b85411ed631936d8f60e09eba1ca2852d1"
 }
