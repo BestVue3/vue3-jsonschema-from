@@ -85,7 +85,7 @@
     "play": "lerna run --scope playground dev --stream",
     "dev": "gulp dev",
     "build": "gulp compile",
-    "pub": "lerna publish",
+    "pub": "lerna publish --no-private",
     "release": "np patch",
     "bootstrap": "lerna bootstrap"
   },

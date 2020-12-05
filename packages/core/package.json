@@ -35,5 +35,6 @@
   "dependencies": {
     "json-schema-merge-allof": "^0.7.0",
     "lodash.topath": "^4.5.2"
-  }
+  },
+  "gitHead": "4a6630682d4c3bc4848cbd52811a53c5ea1794ee"
 }

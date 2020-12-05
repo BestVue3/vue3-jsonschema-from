@@ -26,5 +26,6 @@
   },
   "devDependencies": {
     "@vjsf/core": "^0.0.1"
-  }
+  },
+  "gitHead": "4a6630682d4c3bc4848cbd52811a53c5ea1794ee"
 }
