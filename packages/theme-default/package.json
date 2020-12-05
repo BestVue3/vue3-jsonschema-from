@@ -1,6 +1,6 @@
 {
   "name": "@v3jsf/theme-default",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "the default theme for vue3 jsonschema form",
   "keywords": [
     "theme-default"
