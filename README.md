@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/npm/l/@v3jsf/core)
 ![Version](https://img.shields.io/npm/v/@v3jsf/core)
 
-> This library is still under eary developing, some api will change before we reach `1.0.0` version. You should decided if you can catch up when api changed if you want to use this lib now.
+> This library is still under early developing, some api will change before we reach `1.0.0` version.
 
 Web Forms never come that easy, Just vue3 component and JsonSchema, you can nearly do everything to build your own form.
 
@@ -16,4 +16,4 @@ If you:
 
 you should try this.
 
-You can play with the [playground]() to get familiar with this. Or you may want to read the [doc]() to find out what exactly this lib can do.
+You can play with the [playground]() to get familiar with this lib. Or you may want to read the [doc]() to find out what exactly this lib can do.
