@@ -1,6 +1,6 @@
 {
   "name": "@v3jsf/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "the core package of vue3 jsonschema form",
   "keywords": [
     "vue3",
