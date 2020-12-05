@@ -1,5 +1,6 @@
 node_modules
 *-error.log
+*.log
 .vscode
 .idea
 .npmrc
