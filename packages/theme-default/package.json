@@ -1,6 +1,6 @@
 {
   "name": "@v3jsf/theme-default",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "the default theme for vue3 jsonschema form",
   "keywords": [
     "theme-default"
@@ -18,7 +18,8 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {},
   "peerDependencies": {
@@ -27,5 +28,5 @@
   "devDependencies": {
     "@vjsf/core": "^0.0.1"
   },
-  "gitHead": "da6fce921361e48af7ab8f8f6867e0f8db7ac1b5"
+  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@v3jsf/core",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "the core package of vue3 jsonschema form",
   "keywords": [
     "vue3",
@@ -36,5 +36,5 @@
     "json-schema-merge-allof": "^0.7.0",
     "lodash.topath": "^4.5.2"
   },
-  "gitHead": "da6fce921361e48af7ab8f8f6867e0f8db7ac1b5"
+  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c"
 }
