@@ -23,10 +23,13 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "@vjsf/core": "^0.0.1"
+    "@v3jsf/core": "^0.0.10"
   },
   "devDependencies": {
-    "@vjsf/core": "^0.0.1"
+    "@v3jsf/core": "^0.0.10"
   },
-  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c"
+  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c",
+  "dependencies": {
+    "@v3jsf/core": "^0.0.10"
+  }
 }

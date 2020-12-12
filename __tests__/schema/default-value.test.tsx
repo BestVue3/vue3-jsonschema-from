@@ -1,4 +1,4 @@
-import { Schema } from '@vjsf/core'
+import { Schema } from '@v3jsf/core'
 import { mount } from '@vue/test-utils'
 import TestApp from '../test-utils/App'
 

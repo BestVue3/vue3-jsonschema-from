@@ -1,7 +1,7 @@
 import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 
-import { theme } from '@vjsf/theme-default'
+import { theme } from '@v3jsf/theme-default'
 
 import TestAPP from '../../test-utils/App'
 

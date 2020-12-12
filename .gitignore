@@ -4,6 +4,7 @@ node_modules
 .vscode
 .idea
 .npmrc
+test.js
 dist
 coverage
 packages/*/lib/

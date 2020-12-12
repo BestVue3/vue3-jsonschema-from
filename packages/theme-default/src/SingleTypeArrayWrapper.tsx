@@ -2,7 +2,7 @@ import { defineComponent, PropType } from 'vue'
 
 import { createUseStyles } from 'vue-jss'
 
-import { SingleTypeArrayProps } from '@vjsf/core'
+import { SingleTypeArrayProps } from '@v3jsf/core'
 
 import ArrayActions from './components/ArrayActions'
 

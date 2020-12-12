@@ -3,7 +3,7 @@ import { createUseStyles } from 'vue-jss'
 
 import { renderItem } from '../../utils'
 import { CommonWidgetPropsDefine } from '../../types'
-import { SchemaTypes } from '@vjsf/core'
+import { SchemaTypes } from '@v3jsf/core'
 
 const useStyles = createUseStyles({
   input: {

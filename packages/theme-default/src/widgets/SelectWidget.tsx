@@ -1,7 +1,7 @@
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { createUseStyles } from 'vue-jss'
 import { CommonWidgetPropsDefine } from '../types'
-import { Schema } from '@vjsf/core'
+import { Schema } from '@v3jsf/core'
 import { renderItem } from '../utils'
 
 const useStyles = createUseStyles({

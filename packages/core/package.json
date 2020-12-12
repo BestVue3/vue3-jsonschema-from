@@ -29,8 +29,7 @@
   },
   "devDependencies": {
     "@types/json-schema-merge-allof": "^0.6.0",
-    "@types/lodash.topath": "^4.5.6",
-    "@vjsf/theme-default": "^0.0.1"
+    "@types/lodash.topath": "^4.5.6"
   },
   "dependencies": {
     "json-schema-merge-allof": "^0.7.0",

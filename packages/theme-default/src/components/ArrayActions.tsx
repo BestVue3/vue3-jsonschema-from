@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from 'vue'
-import { SingleTypeArrayProps } from '@vjsf/core'
+import { SingleTypeArrayProps } from '@v3jsf/core'
 
 import { createUseStyles } from 'vue-jss'
 

@@ -1,4 +1,4 @@
-import { ThemeProvider, Theme } from '@vjsf/core'
+import { ThemeProvider, Theme } from '@v3jsf/core'
 import { SetupContext, PropType } from 'vue'
 
 import Form from './Form'

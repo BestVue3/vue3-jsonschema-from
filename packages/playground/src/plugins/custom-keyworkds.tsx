@@ -1,4 +1,4 @@
-import { CustomKeyword } from '@vjsf/core'
+import { CustomKeyword } from '@v3jsf/core'
 import { defineComponent } from 'vue'
 
 const customKeyworkd: CustomKeyword = {

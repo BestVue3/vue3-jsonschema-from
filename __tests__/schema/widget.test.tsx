@@ -1,6 +1,6 @@
-import { theme } from '@vjsf/theme-default'
+import { theme } from '@v3jsf/theme-default'
 import { mount } from '@vue/test-utils'
-import { widgetMap, BuiltInWidgets, Schema, NotFoundWidget } from '@vjsf/core'
+import { widgetMap, BuiltInWidgets, Schema, NotFoundWidget } from '@v3jsf/core'
 import TestApp from '../test-utils/App'
 
 const App: any = TestApp

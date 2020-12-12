@@ -2,7 +2,7 @@ import { ref, Ref, defineComponent, nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 
 import App from '../test-utils/App'
-import { widgets } from '@vjsf/theme-default'
+import { widgets } from '@v3jsf/theme-default'
 
 describe('dependencies:', () => {
   it('should render form based on value', done => {

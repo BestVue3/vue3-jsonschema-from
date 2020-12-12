@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
 // import { nextTick, ref, Ref, h } from 'vue'
 
-import { Schema } from '@vjsf/core'
+import { Schema } from '@v3jsf/core'
 
-import { widgets, layouts } from '@vjsf/theme-default'
+import { widgets, layouts } from '@v3jsf/theme-default'
 
 import TestApp from './test-utils/App'
 

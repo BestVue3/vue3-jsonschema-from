@@ -1,5 +1,5 @@
 {
-  "name": "vue-jss",
+  "name": "vue3-json-schema-form",
   "version": "0.0.2",
   "main": "dist/index.js",
   "private": true,
@@ -91,8 +91,8 @@
   },
   "dependencies": {
     "@types/jest": "^26.0.7",
-    "@vjsf/core": "0.0.1",
-    "@vjsf/theme-default": "0.0.1",
+    "@v3jsf/core": "^0.0.10",
+    "@v3jsf/theme-default": "^0.0.10",
     "jsonpointer": "^4.1.0",
     "lodash.union": "^4.6.0",
     "tiny-warning": "^1.0.3"

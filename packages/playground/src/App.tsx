@@ -11,9 +11,9 @@ import {
   SchemaForm,
   Schema,
   UISchema,
-} from '@vjsf/core'
+} from '@v3jsf/core'
 
-import VjsfDefaultThemeProvider from '@vjsf/theme-default'
+import VjsfDefaultThemeProvider from '@v3jsf/theme-default'
 
 import demos from './demos'
 

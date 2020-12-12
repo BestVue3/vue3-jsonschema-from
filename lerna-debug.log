@@ -1,5 +1,12 @@
-49 error Error: Command failed: git push --follow-tags --no-verify --atomic origin master
-49 error fatal: unable to access 'https://github.com/pure-vue/vue3-jsonschema-from.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
-49 error
-49 error     at makeError (/Users/jokcylou/workspace/personal/vue3-json-schema-form/node_modules/execa/index.js:174:9)
-49 error     at /Users/jokcylou/workspace/personal/vue3-json-schema-form/node_modules/execa/index.js:278:16
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   bootstrap: false,
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   pkg: '@v3jsx/core'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath /Users/jokcylou/workspace/personal/vue3-json-schema-form
+3 error Error: 404 Not Found - GET https://registry.npmjs.com/@v3jsx%2fcore - Not found
+3 error     at /Users/jokcylou/workspace/personal/vue3-json-schema-form/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15

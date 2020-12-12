@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { CommonWidgetPropsDefine } from '@vjsf/core'
+import { CommonWidgetPropsDefine } from '@v3jsf/core'
 
 const Radios = defineComponent({
   name: 'RadioWidget',
