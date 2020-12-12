@@ -1,17 +1,31 @@
-import { defineComponent, computed, provide, watch, isRef, ref, Ref, toRaw } from 'vue'
+import {
+  defineComponent,
+  computed,
+  provide,
+  watch,
+  isRef,
+  ref,
+  Ref,
+  toRaw,
+} from 'vue'
 
 import { useComponent, ThemeLayoutsNames as TCN } from './theme'
 import { VJSFContext } from './Context'
 import { createInstance, validateFormData } from './validator'
 import SchemaItem from './SchemaItem'
 
-import { Schema, JsonSchemFormPlugin, UISchema, SchemaFormPropsDefine, ErrorSchema } from './types'
+import {
+  Schema,
+  JsonSchemFormPlugin,
+  UISchema,
+  SchemaFormPropsDefine,
+  ErrorSchema,
+} from './types'
 
-import type { CreateInstanceOptions, FormatedErrorObject } from './validator'
+import { CreateInstanceOptions, FormatedErrorObject } from './validator'
 
 function transformOptions(props: any) {
   return computed(() => {
-
     const { ajvInstanceOptions, plugins } = props
     // debugger
     const ajvOptions: CreateInstanceOptions = {
@@ -25,14 +39,16 @@ function transformOptions(props: any) {
      */
     const formatMaps: any = {
       string: {},
-      number: {}
+      number: {},
     }
 
     const keywordTransforms: Record<string, any> = {}
 
-    const innerPlugins = plugins ? (Array.isArray(plugins)
-      ? plugins
-      : [plugins]) : []
+    const innerPlugins = plugins
+      ? Array.isArray(plugins)
+        ? plugins
+        : [plugins]
+      : []
 
     innerPlugins.forEach((plugin: JsonSchemFormPlugin) => {
       const { customFormats, customKeywords } = plugin
@@ -81,7 +97,7 @@ function transformOptions(props: any) {
       keywordTransforms,
     }
   })
-} 
+}
 
 export default defineComponent({
   name: 'JsonSchemaForm',
@@ -94,11 +110,14 @@ export default defineComponent({
     /**
      * TODO: change of props.value & props.schema should reset errors?
      */
-    const formErrorsRef: Ref<{ errors: FormatedErrorObject[], errorSchema: ErrorSchema }> = ref({
+    const formErrorsRef: Ref<{
+      errors: FormatedErrorObject[]
+      errorSchema: ErrorSchema
+    }> = ref({
       errors: [],
       errorSchema: {
-        __errors: []
-      } as any
+        __errors: [],
+      } as any,
     })
 
     const handleChange = (value: any) => {
@@ -112,7 +131,6 @@ export default defineComponent({
     const transformedOptions = transformOptions(props)
 
     const validator = computed(() => {
-
       const { ajvOptions } = transformedOptions.value
 
       return createInstance(ajvOptions)
@@ -127,14 +145,18 @@ export default defineComponent({
         formatMaps,
         SchemaItem,
         validate: (schema: Schema, data: any) => {
-          const {
-            errorSchema,
-            errors
-          } = validateFormData(toRaw(data), toRaw(schema), validator.value, locale, props.customValidate)
+          const { errorSchema, errors } = validateFormData(
+            toRaw(data),
+            toRaw(schema),
+            validator.value,
+            locale,
+            props.customValidate,
+          )
 
           return {
-            errorSchema, errors,
-            valid: errors.length === 0
+            errorSchema,
+            errors,
+            valid: errors.length === 0,
           }
         },
       }
@@ -142,30 +164,38 @@ export default defineComponent({
 
     provide(VJSFContext, context)
 
-    watch(() => props.contextRef, (ref) => {
-      if (isRef(ref)) {
-        ref.value = {
-          doValidate: () => {
-            const { schema, value, locale, customValidate } = props
+    watch(
+      () => props.contextRef,
+      ref => {
+        if (isRef(ref)) {
+          ref.value = {
+            doValidate: () => {
+              const { schema, value, locale, customValidate } = props
 
-            const {
-              errorSchema,
-              errors
-            } = validateFormData(toRaw(value), toRaw(schema), validator.value, locale, customValidate)
+              const { errorSchema, errors } = validateFormData(
+                toRaw(value),
+                toRaw(schema),
+                validator.value,
+                locale,
+                customValidate,
+              )
 
-            formErrorsRef.value = {
-              errors,
-              errorSchema
-            }
+              formErrorsRef.value = {
+                errors,
+                errorSchema,
+              }
 
-            return {
-              errorSchema, errors,
-              valid: errors.length === 0
-            }
+              return {
+                errorSchema,
+                errors,
+                valid: errors.length === 0,
+              }
+            },
           }
         }
-      }
-    }, { immediate: true })
+      },
+      { immediate: true },
+    )
 
     return () => {
       const { formProps, value, schema, uiSchema } = props

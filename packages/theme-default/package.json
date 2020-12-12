@@ -8,28 +8,39 @@
   "author": "Jokcy <jokcylou@hotmail.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.js",
+  "main": "index.js",
+  "module": "dist/theme-default.esm-bundler.js",
+  "types": "types",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
+  "buildOptions": {
+    "name": "V3JSFThemeDefault",
+    "formats": [
+      "esm-bundler",
+      "esm-browser",
+      "cjs",
+      "global"
+    ]
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "scripts": {},
   "peerDependencies": {
-    "@v3jsf/core": "^0.0.10"
+    "@v3jsf/core": "^0.0.10",
+    "vue-jss": "^0.0.4",
+    "jss": "^10.3.0",
+    "jss-preset-default": "^10.3.0"
   },
   "devDependencies": {
     "@v3jsf/core": "^0.0.10"
   },
-  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c",
-  "dependencies": {
-    "@v3jsf/core": "^0.0.10"
-  }
+  "gitHead": "0f70709461d41717bad04a6ef8db2f40decec43c"
 }

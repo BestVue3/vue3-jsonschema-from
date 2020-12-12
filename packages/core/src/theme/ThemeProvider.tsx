@@ -1,6 +1,10 @@
-import { defineComponent, computed, provide, ComponentPublicInstance, ExtractPropTypes, DefineComponent } from 'vue'
-
-import type { PropType } from 'vue'
+import {
+  defineComponent,
+  computed,
+  provide,
+  PropType,
+  DefineComponent,
+} from 'vue'
 
 import { ComponentsContext } from './Context'
 import { CommonFieldPropsDefine } from '../types'
@@ -15,7 +19,7 @@ import { SingleTypeArrayDefine } from './types'
 export enum ThemeLayoutsNames {
   Form = 'Form',
   SingleTypeArrayWrapper = 'SingleTypeArrayWrapper',
-  Header = 'Header'
+  Header = 'Header',
 }
 
 export enum ThemeRendererComponentNames {
@@ -29,10 +33,9 @@ export enum ThemeRendererComponentNames {
 export type FormDefine = DefineComponent<any, {}, {}>
 export type HeaderDefine = DefineComponent<any, {}, {}>
 
-
 export interface Layouts {
-  [ThemeLayoutsNames.Form]: FormDefine,
-  [ThemeLayoutsNames.SingleTypeArrayWrapper]: SingleTypeArrayDefine,
+  [ThemeLayoutsNames.Form]: FormDefine
+  [ThemeLayoutsNames.SingleTypeArrayWrapper]: SingleTypeArrayDefine
   [ThemeLayoutsNames.Header]: HeaderDefine
 }
 
@@ -43,15 +46,14 @@ export interface Theme {
 }
 
 export default defineComponent({
-  name: "ThemeProvider",
+  name: 'ThemeProvider',
   props: {
     theme: {
       type: Object as PropType<Theme>,
-      required: true
+      required: true,
     },
   },
   setup(props, { slots }) {
-
     const components = computed(() => {
       const { theme } = props
       return {
@@ -59,11 +61,9 @@ export default defineComponent({
         widgets: {
           ...theme.widgets,
           NotFoundWidget,
-        }
+        },
       }
     })
-
-
 
     provide(ComponentsContext, components)
 

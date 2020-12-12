@@ -7,7 +7,7 @@
     "jsxFactory": "h",
     "importHelpers": true,
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "dist/packages",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

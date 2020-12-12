@@ -1,5 +1,5 @@
 import { defineComponent, computed } from 'vue'
-import { createUseStyles } from 'vue-jss'
+// import { createUseStyles } from 'vue-jss'
 
 import {
   ThemeRendererComponentNames,
@@ -22,19 +22,19 @@ import { useVJSFContext } from '../Context'
 import { isObject, retrieveSchema, isMultiSelect, optionsList } from '../utils'
 import AddIcon from './icons/add'
 
-const useStyles = createUseStyles({
-  addBtn: {
-    border: '1px solid #aaa',
-    padding: '10px 10px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 3,
-    background: '#fefefe',
-    cursor: 'pointer',
-    marginBottom: 20,
-  },
-})
+// const useStyles = createUseStyles({
+//   addBtn: {
+//     border: '1px solid #aaa',
+//     padding: '10px 10px',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     borderRadius: 3,
+//     background: '#fefefe',
+//     cursor: 'pointer',
+//     marginBottom: 20,
+//   },
+// })
 
 enum ArrayItemAction {
   ADD = 'add',
@@ -166,7 +166,18 @@ const Comp = defineComponent({
       return isMultiSelect(schema, rootSchema)
     })
 
-    const classesRef = useStyles()
+    // const classesRef = useStyles()
+    const style = {
+      border: '1px solid #aaa',
+      padding: '10px 10px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 3,
+      background: '#fefefe',
+      cursor: 'pointer',
+      marginBottom: 20,
+    } as any
 
     return () => {
       const Header: HeaderDefine = HeaderRef.value
@@ -189,7 +200,7 @@ const Comp = defineComponent({
         rootSchema: rootSchema,
       }
 
-      const classes = classesRef.value
+      // const classes = classesRef.value
 
       let content: any
 
@@ -246,7 +257,7 @@ const Comp = defineComponent({
           ) : controlAvailable(controls, 'addable') && !isMax ? ( // if not addable, not show this
             <a
               onClick={() => arrayItemAction(ArrayItemAction.ADD, 0)}
-              class={classes.addBtn}
+              style={style}
             >
               <AddIcon /> {schemaTitleRef.value || props.path}
             </a>
